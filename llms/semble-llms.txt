@@ -1,0 +1,35 @@
+# Semble
+
+> Semble is a London-based cloud clinical and practice-management platform for UK private and independent healthcare. It exposes a single open, secure public GraphQL API at https://open.semble.io/graphql for reading and writing patients, bookings, availability, consultations, clinical pathways, prescriptions, labs, invoices, tasks, forms, questionnaires and webhooks. Authentication is a role-scoped token sent in the x-token header (a long-lived API token or a 12-hour signIn JWT). Rate limit: 240 requests/minute. Pagination is page-number based ({data, pageInfo{hasMore}}). The API is GraphQL-native and does not publish an OpenAPI or an HL7 FHIR CapabilityStatement.
+
+## API
+- [Semble GraphQL endpoint](https://open.semble.io/graphql): Single public GraphQL API (queries, mutations, webhook subscriptions)
+- [API Reference](https://docs.semble.io/docs/API/): Auto-generated GraphQL schema docs (queries, mutations, objects, inputs)
+- [Introduction](https://docs.semble.io/docs/intro/): Overview of the public GraphQL API
+
+## Docs
+- [Authentication](https://docs.semble.io/docs/authentication/): x-token header; signIn mutation returns a 12-hour JWT; role-scoped tokens
+- [API access / getting started](https://help.semble.io/api-access): Generate an API key (Settings > API Access), 240 req/min, 12-hour tokens
+- [Pagination](https://docs.semble.io/docs/how-to/paginate/): page / pageSize input; data + pageInfo.hasMore response
+- [How-to guides](https://docs.semble.io/docs/category/how-to-guides/): Appointments, patient search, integration tokens, questionnaires, pagination
+- [Release notes](https://docs.semble.io/docs/release-notes/): Schema change announcements
+
+## Enrichment artifacts
+- [Authentication profile](authentication/semble-authentication.yml)
+- [Conventions](conventions/semble-conventions.yml)
+- [Error codes](errors/semble-error-codes.yml)
+- [Rate limits](rate-limits/semble-rate-limits.yml)
+- [Lifecycle](lifecycle/semble-lifecycle.yml)
+- [Conformance](conformance/semble-conformance.yml)
+- [Webhooks](asyncapi/semble-webhooks.yml)
+- [Domain security](security/semble-domain-security.yml)
+- [Trust center](security/semble-trust-center.yml)
+
+## Trust & compliance
+- [Trust center](https://trust.semble.io/): ISO/IEC 27001:2022, Cyber Essentials Plus, PCI DSS v4.0.1, NHS DSPT, GDPR
+- [Status page](https://status.semble.io/)
+
+## Optional
+- [Website](https://www.semble.io/)
+- [Blog](https://www.semble.io/blog)
+- [Support](https://help.semble.io/)

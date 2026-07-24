@@ -1,0 +1,29 @@
+generated: '2026-07-24'
+method: searched
+source:
+  - https://docs.semble.io/docs/intro/
+  - https://docs.semble.io/docs/release-notes/
+  - https://status.semble.io/
+description: >-
+  Lifecycle posture for the Semble public GraphQL API: schema-in-place
+  evolution announced through Release notes, a public status page, and no
+  documented formal deprecation/sunset-header policy.
+versioning:
+  scheme: schema-in-place (no URL/header version segment)
+  detail: >-
+    The GraphQL schema evolves without a version path; reference docs are
+    auto-generated from the live schema and changes are surfaced in Release
+    notes.
+  release_notes: https://docs.semble.io/docs/release-notes/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  detail: >-
+    No formal deprecation policy or RFC 8594 Sunset/Deprecation header support
+    is documented. GraphQL field-level @deprecated directives may appear in the
+    schema but are not published as a policy.
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.semble.io/
+deprecated_operations: []

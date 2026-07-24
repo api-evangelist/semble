@@ -1,0 +1,32 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Semble
+providerId: semble
+generated: '2026-07-24'
+method: searched
+source:
+  - https://help.semble.io/api-access
+  - https://docs.semble.io/docs/intro/
+tags:
+  - Rate Limiting
+  - Healthcare
+  - GraphQL
+description: >-
+  Semble enforces a single documented request-rate ceiling across the public
+  GraphQL API. The published limit is 240 requests per minute per API consumer;
+  Semble does not publish per-tier or per-operation limits, and rate-limit
+  response headers are not documented.
+headers: {}
+responseCodes: {}
+limits:
+  - name: Public GraphQL API requests
+    scope: consumer
+    metric: requests_per_minute
+    limit: 240
+    timeFrame: minute
+    source: https://help.semble.io/api-access
+notes: >-
+  "At the moment you can send the Semble API 240 requests per minute."
+  (help.semble.io/api-access). Semble does not document a Retry-After or
+  X-RateLimit-* header, nor a distinct throttling status code, so consumers
+  should self-throttle to stay under 240 rpm.

@@ -1,0 +1,43 @@
+generated: '2026-07-24'
+method: searched
+source:
+  - https://docs.semble.io/docs/API/queries/webhooks/
+  - https://docs.semble.io/docs/API/
+spec_type: Webhooks
+description: >-
+  Semble delivers outbound events through webhook subscriptions managed inside
+  the GraphQL API. A practice registers a WebhookSubscription (a delivery URL
+  plus the events it wants); Semble then POSTs event payloads to that URL. There
+  is no published AsyncAPI document; this artifact captures the webhook surface
+  as documented. The concrete event enum and payload schemas live in the
+  GraphQL schema, which is auth-gated (introspection requires a valid x-token),
+  so event names are not enumerated verbatim here.
+endpoint: https://open.semble.io/graphql
+management:
+  style: GraphQL
+  queries:
+    - name: webhooks
+      description: List the webhook subscriptions for the current practice (optional includeDeleted).
+    - name: webhook
+      description: Fetch a single webhook subscription by id.
+  mutations:
+    - name: createWebhookSubscription
+      description: Register a new outbound webhook subscription (delivery URL + selected events).
+    - name: updateWebhookSubscription
+      description: Update an existing webhook subscription.
+    - name: deleteWebhookSubscription
+      description: Remove a webhook subscription.
+  object:
+    name: WebhookSubscription
+    description: A webhook subscription for outbound event delivery.
+events:
+  enumerated: false
+  note: >-
+    The set of subscribable event types is defined in the GraphQL schema
+    (WebhookSubscription / event enum) and requires authenticated introspection
+    to enumerate. Documented domains that emit events include patients,
+    bookings/appointments, consultations, invoices/payments and tasks.
+delivery:
+  transport: HTTPS POST to the subscriber-provided URL
+  signing: not documented publicly (secret/HMAC handling described in the authenticated Webhooks guide)
+  retries: not documented publicly

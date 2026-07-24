@@ -1,0 +1,42 @@
+generated: '2026-07-24'
+method: searched
+source: https://docs.semble.io/docs/authentication/
+docs: https://docs.semble.io/docs/authentication/
+description: >-
+  Semble's public GraphQL API is authenticated with a bearer-style token passed
+  in a custom "x-token" request header. There is no OAuth 2.0 / OIDC surface and
+  no SMART-on-FHIR; access control is expressed through the role assigned to the
+  token when it is created. Two token kinds exist: long-lived API-access tokens
+  generated in the Semble application (Settings > API Access), each bound to a
+  named role that scopes which queries and mutations it may call; and a
+  short-lived session JWT returned by the signIn mutation, valid for 12 hours.
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  api_key_name: x-token
+  oauth2_flows: []
+schemes:
+  - name: xToken
+    type: apiKey
+    in: header
+    parameter_name: x-token
+    description: >-
+      Role-scoped access token. Sent on every GraphQL request as the "x-token"
+      HTTP header. Value is either a long-lived API-access token minted in the
+      Semble app or the 12-hour JWT returned by the signIn mutation.
+    sources: [docs.semble.io/docs/authentication]
+token_kinds:
+  - kind: api-access-token
+    obtained_via: Semble application > Settings > API Access > New (name + role)
+    lifetime: long-lived until revoked
+    scoping: >-
+      Role assigned at creation controls which queries/mutations and which
+      patient/practice data the token can reach.
+  - kind: session-jwt
+    obtained_via: signIn mutation (email + password) -> returns JWT
+    lifetime: 12 hours
+    note: Recommended to sign in at the start of each day.
+notes: >-
+  Keep tokens secret; they can be revoked in the Semble application. API
+  availability depends on the customer's Semble package/role (contact
+  support@semble.io to enable).

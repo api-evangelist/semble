@@ -1,0 +1,19 @@
+generated: '2026-07-24'
+method: generated
+source: >-
+  Grounded in documented Semble GraphQL operations (docs.semble.io). GraphQL
+  introspection is auth-gated, so operations are drawn from the published docs
+  rather than the live schema.
+skills:
+  - file: semble-authenticate-and-query-patients.md
+    name: Authenticate and query patients
+    api: https://open.semble.io/graphql
+    operations: [signIn, patients, patient]
+  - file: semble-create-a-booking.md
+    name: Create a booking
+    api: https://open.semble.io/graphql
+    operations: [availabilities, bookings, createBooking]
+  - file: semble-subscribe-to-webhooks.md
+    name: Subscribe to webhooks
+    api: https://open.semble.io/graphql
+    operations: [webhooks, createWebhookSubscription, updateWebhookSubscription, deleteWebhookSubscription]

@@ -1,0 +1,32 @@
+generated: '2026-07-24'
+method: searched
+description: >-
+  Probe of the /.well-known/ discovery surface across the Semble API host
+  (open.semble.io), the marketing host (www.semble.io), and the docs host
+  (docs.semble.io). No real well-known documents are published: the API and
+  marketing hosts return 404 for every probe, and the Docusaurus docs host
+  returns its SPA catch-all HTML shell (HTTP 200) for every path, which is a
+  false positive, not a real document. Recorded as valid negative-space data.
+hosts:
+  - host: https://open.semble.io
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://www.semble.io
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+  - host: https://docs.semble.io
+    note: >-
+      Docusaurus SPA returns HTTP 200 with an identical HTML shell for every
+      /.well-known/* path (and for /openapi.json, /llms.txt). These are NOT real
+      discovery documents.
+    documents:
+      - {path: /.well-known/security.txt, status: 200, real: false, reason: docusaurus-spa-catch-all}
+      - {path: /.well-known/openid-configuration, status: 200, real: false, reason: docusaurus-spa-catch-all}

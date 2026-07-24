@@ -165,6 +165,32 @@ apis:
   - type: Authentication
     url: https://docs.semble.io/docs/authentication/
 common:
+- type: TrustCenter
+  url: security/semble-trust-center.yml
+- type: DomainSecurity
+  url: security/semble-domain-security.yml
+- type: Compliance
+  url: https://trust.semble.io/
+- type: Conformance
+  url: conformance/semble-conformance.yml
+- type: Authentication
+  url: authentication/semble-authentication.yml
+- type: Conventions
+  url: conventions/semble-conventions.yml
+- type: ErrorCatalog
+  url: errors/semble-error-codes.yml
+- type: RateLimits
+  url: rate-limits/semble-rate-limits.yml
+- type: Lifecycle
+  url: lifecycle/semble-lifecycle.yml
+- type: Webhooks
+  url: asyncapi/semble-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/semble-llms.txt
+- type: ChangeLog
+  url: https://docs.semble.io/docs/release-notes/
 - type: Website
   url: https://www.semble.io/
 - type: DeveloperPortal

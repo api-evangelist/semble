@@ -1,0 +1,45 @@
+generated: '2026-07-24'
+method: derived
+source:
+  - https://docs.semble.io/docs/authentication/
+  - live probe of https://open.semble.io/graphql
+description: >-
+  Error semantics for the Semble public GraphQL API. Semble follows the GraphQL
+  transport convention: a top-level "errors" array where each entry has a
+  "message" and a machine-readable "extensions.code". This catalog captures the
+  error envelope and the codes observed/documented; it is not RFC 9457
+  (problem+json) because the API is GraphQL, not REST.
+format: graphql-errors
+envelope:
+  errors_field: errors
+  message_field: errors[].message
+  code_field: errors[].extensions.code
+  partial_data: >-
+    A partial "data" object may be returned alongside "errors" when only some
+    fields fail.
+  example: |
+    {
+      "errors": [
+        { "message": "Missing token.", "extensions": { "code": "UNAUTHENTICATED" } }
+      ]
+    }
+codes:
+  - code: UNAUTHENTICATED
+    meaning: >-
+      No token, missing, expired, or invalid x-token header. Observed live as
+      {"message":"Missing token."} on an unauthenticated request.
+    action: >-
+      Send a valid x-token header (a current API token or a signIn JWT no older
+      than 12 hours).
+    evidence: live probe (HTTP 401, code UNAUTHENTICATED)
+  - code: FORBIDDEN
+    meaning: >-
+      Token is valid but its assigned role does not grant access to the
+      requested query/mutation or data.
+    action: Use a token whose role scopes the operation, or broaden the role.
+    evidence: derived from role-scoped token model (docs/authentication)
+notes: >-
+  Semble does not publish a numbered error-code registry. Codes beyond
+  UNAUTHENTICATED (validation, not-found, rate-limit) are surfaced through the
+  same extensions.code channel but are not enumerated in the public docs;
+  authenticated schema introspection would reveal field-level error unions.

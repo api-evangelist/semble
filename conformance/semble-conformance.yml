@@ -1,0 +1,50 @@
+generated: '2026-07-24'
+method: searched
+source:
+  - https://trust.semble.io/
+  - https://docs.semble.io/docs/authentication/
+  - https://docs.semble.io/docs/how-to/paginate/
+description: >-
+  Standards and compliance posture for Semble. Compliance certifications are
+  published on the Semble trust center; cross-cutting technical conformance is
+  derived from the documented GraphQL API behavior. Semble is GraphQL-native and
+  explicitly does NOT publish an HL7 FHIR CapabilityStatement or SMART-on-FHIR.
+standards:
+  - id: graphql
+    conforms: true
+    evidence: Public GraphQL API at https://open.semble.io/graphql (queries, mutations, webhook subscriptions).
+  - id: gdpr
+    conforms: true
+    evidence: GDPR compliance published on trust.semble.io; UK ICO-registered with a Data Privacy Officer.
+  - id: iso-27001
+    conforms: true
+    evidence: "ISO/IEC 27001:2022 certification listed on trust.semble.io."
+  - id: pci-dss
+    conforms: true
+    evidence: "PCI DSS v4.0.1 listed on trust.semble.io (Semble Pay payments)."
+  - id: cyber-essentials-plus
+    conforms: true
+    evidence: "Cyber Essentials Plus (UK NCSC) listed on trust.semble.io."
+  - id: nhs-dspt
+    conforms: true
+    evidence: "NHS Data Security and Protection Toolkit (UK) listed on trust.semble.io."
+  - id: oauth2
+    conforms: false
+    evidence: Auth is a role-scoped x-token header; no OAuth 2.0 / OIDC surface.
+  - id: fhir-r4
+    conforms: false
+    evidence: Docs state Semble does not publish an HL7 FHIR CapabilityStatement; API is GraphQL-native.
+  - id: smart-on-fhir
+    conforms: false
+    evidence: Docs explicitly state authentication is token-based rather than SMART-on-FHIR.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use the GraphQL errors[] envelope, not application/problem+json.
+compliance_published:
+  program_url: https://trust.semble.io/
+  certifications:
+    - ISO/IEC 27001:2022
+    - Cyber Essentials Plus
+    - PCI DSS v4.0.1
+    - NHS DSPT (UK)
+    - GDPR

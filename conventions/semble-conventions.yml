@@ -1,0 +1,85 @@
+generated: '2026-07-24'
+method: searched
+source:
+  - https://docs.semble.io/docs/intro/
+  - https://docs.semble.io/docs/authentication/
+  - https://docs.semble.io/docs/how-to/paginate/
+  - https://help.semble.io/api-access
+description: >-
+  Cross-cutting request/response semantics for the Semble public GraphQL API:
+  a single GraphQL endpoint, x-token header authentication, page-number
+  pagination with a {data, pageInfo{hasMore}} envelope, the standard GraphQL
+  top-level errors[] envelope with an extensions.code, a 240 req/min rate
+  ceiling, and schema-generated versioning surfaced through release notes.
+  These are the developer-experience conventions the GraphQL SDL does not fully
+  express.
+
+endpoint: https://open.semble.io/graphql
+api_style: GraphQL over HTTPS (single endpoint; queries, mutations, and webhook subscriptions)
+
+authentication:
+  style: apiKey (custom header)
+  header: x-token
+  detail: >-
+    Role-scoped token (long-lived API token or 12-hour signIn JWT). See
+    authentication/semble-authentication.yml.
+
+pagination:
+  style: page-number
+  input:
+    container: pagination
+    params:
+      - name: page
+        description: 1-based page number; increment to walk the dataset.
+      - name: pageSize
+        description: Number of records per page.
+  response:
+    data_field: data
+    page_info_field: pageInfo
+    has_more_field: pageInfo.hasMore
+  example: |
+    query {
+      patients(pagination: { page: 1, pageSize: 5 }) {
+        data { id firstName lastName }
+        pageInfo { hasMore }
+      }
+    }
+  defaults: not published (default/max pageSize not documented)
+  docs: https://docs.semble.io/docs/how-to/paginate/
+
+error_envelope:
+  style: graphql
+  detail: >-
+    Errors are returned in the standard GraphQL top-level "errors" array. Each
+    error carries a "message" and an "extensions.code" machine string (e.g.
+    UNAUTHENTICATED for a missing/invalid x-token). A partial "data" payload may
+    accompany errors on field-level failures.
+  code_field: errors[].extensions.code
+  see: errors/semble-error-codes.yml
+
+rate_limiting:
+  limit: 240 requests per minute
+  signaling: not documented (no Retry-After / X-RateLimit-* headers published)
+  see: rate-limits/semble-rate-limits.yml
+
+versioning:
+  scheme: >-
+    No path/header version. The schema evolves in place; changes are announced
+    in the Release notes section of the docs. Reference documentation is
+    auto-generated from the live GraphQL schema.
+  docs: https://docs.semble.io/docs/release-notes/
+
+idempotency:
+  supported: false
+  detail: >-
+    Semble does not document an idempotency-key mechanism. Mutations are not
+    guaranteed idempotent; clients should guard against duplicate submission.
+
+request_tracing:
+  supported: unknown
+  detail: No request-id / correlation header is documented.
+
+webhooks:
+  detail: >-
+    Outbound event delivery is configured through WebhookSubscription objects
+    managed via GraphQL. See asyncapi/semble-webhooks.yml.
