@@ -1,0 +1,147 @@
+aid: semble
+name: Semble
+review:
+  question: Does Semble publish a documented public API, and is it FHIR-based or a downloadable spec?
+  answer: true
+  date: '2026-07-24'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+findings:
+  summary: >-
+    Semble, a London-based (7 Bell Yard, London, WC2A 2JR) cloud clinical /
+    practice-management platform for UK private healthcare, publishes a real,
+    self-serve, documented public GraphQL API. The developer portal is a
+    Docusaurus site at https://docs.semble.io/ (HTTP 200) that renders the full
+    GraphQL schema at https://docs.semble.io/docs/API/ (HTTP 200) — 60+ queries
+    and hundreds of mutations covering patients, bookings/availability,
+    consultations, clinical pathways/reports, episodes, letters, prescriptions,
+    labs, invoices, account statements, products/pricing, payment terminals,
+    tasks, forms, questionnaires, users, contacts, practice and webhooks. The
+    single live endpoint is https://open.semble.io/graphql (GET returns HTTP 400;
+    a POST introspection query returns HTTP 401 "Missing token", confirming the
+    surface exists but is gated behind authentication). The API is available to
+    Semble clinics at no extra cost, provisioned in-app under Settings → API
+    Access and gated by Semble package and role.
+  developerPortal:
+    url: https://docs.semble.io/
+    httpStatus: 200
+    confirmed: true
+    generator: Docusaurus v3.10.1
+    apiReference: https://docs.semble.io/docs/API/
+    apiReferenceHttpStatus: 200
+  fhirCapabilityStatement:
+    present: false
+    metadataProbe:
+      url: https://open.semble.io/metadata
+      httpStatus: 404
+    smartConfigurationProbe:
+      url: https://open.semble.io/.well-known/smart-configuration
+      httpStatus: 404
+    note: >-
+      Semble is a GraphQL-native platform, not an HL7 FHIR server. No FHIR
+      CapabilityStatement / conformance, no /metadata, and no SMART-on-FHIR
+      .well-known/smart-configuration are served. FHIR version: not applicable.
+  downloadableSpecs:
+    count: 0
+    openapiHarvested: false
+    note: >-
+      No downloadable OpenAPI/Swagger or GraphQL SDL could be harvested verbatim.
+      https://docs.semble.io/openapi.json returns HTTP 200 but with content-type
+      text/html — it is the Docusaurus single-page-app shell, not a parseable
+      OpenAPI document (no openapi/swagger key, no paths). The GraphQL schema is
+      human-documented on the portal but machine introspection at
+      https://open.semble.io/graphql requires an authenticated x-token (HTTP 401
+      without one), so no schema was saved to avoid fabrication.
+  authModel:
+    scheme: api-key
+    smartOnFhir: false
+    oauth2: false
+    tokenHeader: x-token
+    tokenLifetimeHours: 12
+    signInMutation: signIn(email, password)
+    rbac: true
+    rateLimitPerMinute: 240
+    note: >-
+      Two documented paths to a token: (1) a pre-generated token created in
+      Semble Settings → API Access with an assigned role; (2) a signIn(email,
+      password) GraphQL mutation returning a token. The token is sent in the
+      x-token request header and expires after 12 hours. Role-based access
+      control governs which data and operations a credential can reach. No OAuth2
+      authorization-code / client-credentials flow and no SMART-on-FHIR scopes
+      (e.g. patient/*.read) are used.
+  standardsConformance:
+    usCore: false
+    ukCore: false
+    auCore: false
+    daVinci: false
+    carin: false
+    note: >-
+      No HL7 FHIR profile conformance (US Core, UK Core, AU Core, Da Vinci,
+      CARIN) applies — the API is proprietary GraphQL, not FHIR. Semble states
+      GDPR compliance and UK healthcare security standards (data encrypted in
+      transit and at rest); a public Trust Centre is served at
+      https://trust.semble.io/ (HTTP 200).
+  access:
+    model: gated-self-serve
+    note: >-
+      Documentation is fully public; API access is self-serve for Semble clinics
+      from within the product (Settings → API Access) but gated by the customer's
+      Semble package and role — a documented, gated-but-open posture rather than
+      a partner-only closed gate.
+  homeMarket: United Kingdom
+transports:
+  - protocol: GraphQL
+    scheme: https
+    endpoint: https://open.semble.io/graphql
+    documented: true
+    getHttpStatus: 400
+    introspectionHttpStatus: 401
+    note: Single GraphQL endpoint; POST with a JSON GraphQL body and an x-token header. GET returns 400; unauthenticated introspection returns 401 "Missing token".
+  - protocol: REST
+    scheme: https
+    documented: false
+    note: No REST/OpenAPI surface is documented. docs.semble.io/openapi.json is the SPA HTML shell, not a spec.
+  - protocol: FHIR
+    scheme: https
+    documented: false
+    note: No FHIR base, /metadata, or SMART configuration is served.
+sources:
+  - url: https://docs.semble.io/
+    type: DeveloperPortal
+    httpStatus: 200
+    note: Docusaurus developer portal, "Integrate with Semble | Semble API".
+  - url: https://docs.semble.io/docs/API/
+    type: APIReference
+    httpStatus: 200
+    note: Full GraphQL schema reference (queries, mutations, enums, directives).
+  - url: https://docs.semble.io/docs/authentication/
+    type: Authentication
+    httpStatus: 200
+    note: x-token header, signIn mutation, 12-hour token lifetime.
+  - url: https://help.semble.io/api-access
+    type: Documentation
+    httpStatus: 200
+    note: How to create API credentials (Settings → API Access), 240 req/min, endpoint https://open.semble.io/graphql.
+  - url: https://help.semble.io/api-and-developer-information
+    type: Documentation
+    httpStatus: 200
+    note: API and developer information help-centre landing page.
+  - url: https://www.semble.io/integrations-api
+    type: Documentation
+    httpStatus: 200
+    note: Marketing overview of the open GraphQL API and lab/pharmacy/AI integration partners.
+  - url: https://www.semble.io/platform
+    type: Website
+    httpStatus: 200
+    note: Platform overview — EHR, scheduling, video, e-prescribing, labs, Semble Pay, patient portal.
+  - url: https://open.semble.io/graphql
+    type: GraphQL
+    httpStatus: 401
+    note: Live GraphQL endpoint; unauthenticated introspection returns 401 "Missing token" (UNAUTHENTICATED).
+actions:
+  reason: >-
+    Bootstrap identity captured with an honest read of a real, documented,
+    gated-self-serve GraphQL developer portal. No FHIR CapabilityStatement or
+    downloadable OpenAPI exists to harvest, and GraphQL introspection is
+    token-gated, so no spec was saved verbatim — the openapi/ directory is
+    intentionally empty of harvested specs to avoid fabrication.

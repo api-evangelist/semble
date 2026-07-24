@@ -1,0 +1,196 @@
+aid: semble
+url: https://raw.githubusercontent.com/api-evangelist/semble/refs/heads/main/apis.yml
+name: Semble
+kind: company
+description: >-
+  Semble is a London-headquartered (7 Bell Yard, London, WC2A 2JR) cloud clinical
+  and practice-management platform for United Kingdom private and independent
+  healthcare providers, from solo clinicians to corporate and enterprise clinics.
+  Its modular EHR unifies patient records, appointment scheduling and online
+  booking, video consultations, e-prescribing, pathology/lab ordering, clinical
+  documentation, invoicing and payments (Semble Pay) and patient communications.
+  Semble exposes a single open, secure public GraphQL API at
+  https://open.semble.io/graphql, available to Semble clinics at no extra cost,
+  letting developers read and write patients, bookings, availability,
+  consultations, clinical pathways, prescriptions, labs, invoices, tasks, forms,
+  questionnaires and webhooks. Authentication is API-key / token based (an
+  x-token header carrying a role-scoped token that expires after 12 hours) rather
+  than SMART-on-FHIR; the API is GraphQL-native and does not publish an HL7 FHIR
+  CapabilityStatement or a downloadable OpenAPI. Semble emphasises GDPR
+  compliance and UK healthcare security standards, with data encrypted in transit
+  and at rest.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Healthcare
+- United Kingdom
+- EHR
+- Practice Management
+- GraphQL
+- Patient Records
+- Scheduling
+- e-Prescribing
+- Interoperability
+- Digital Health
+created: '2026-07-24'
+modified: '2026-07-24'
+specificationVersion: '0.19'
+apis:
+- aid: semble:semble-patients-api
+  name: Semble Patients API
+  description: >-
+    GraphQL queries and mutations over the Semble patient record — patients,
+    demographics, phone numbers, relationships, labels, memberships, access
+    groups, allergy records, free-text records, patient documents and patient
+    communications. Part of the single Semble public GraphQL API.
+  humanURL: https://docs.semble.io/docs/API/queries/patients/
+  baseURL: https://open.semble.io/graphql
+  tags:
+  - Patients
+  - Patient Records
+  - Healthcare
+  properties:
+  - type: Documentation
+    url: https://docs.semble.io/
+  - type: APIReference
+    url: https://docs.semble.io/docs/API/
+  - type: GraphQL
+    url: https://docs.semble.io/docs/API/queries/patients/
+  - type: Authentication
+    url: https://docs.semble.io/docs/authentication/
+- aid: semble:semble-scheduling-api
+  name: Semble Scheduling & Bookings API
+  description: >-
+    GraphQL surface for appointments and scheduling — bookings, bookings-by-id,
+    availabilities, availability rules, availability settings, availability
+    slots, online booking configurations, out-of-office bookings and
+    terminal/online booking payments.
+  humanURL: https://docs.semble.io/docs/API/queries/bookings/
+  baseURL: https://open.semble.io/graphql
+  tags:
+  - Scheduling
+  - Bookings
+  - Appointments
+  properties:
+  - type: Documentation
+    url: https://docs.semble.io/
+  - type: APIReference
+    url: https://docs.semble.io/docs/API/
+  - type: GraphQL
+    url: https://docs.semble.io/docs/API/queries/bookings/
+  - type: Authentication
+    url: https://docs.semble.io/docs/authentication/
+- aid: semble:semble-clinical-api
+  name: Semble Clinical API
+  description: >-
+    GraphQL surface for clinical documentation and care pathways — consultations,
+    clinical pathways, clinical reports, episodes and episode types, letters,
+    working diagnoses, diagnosis codes, forms and questionnaires.
+  humanURL: https://docs.semble.io/docs/API/queries/consultations/
+  baseURL: https://open.semble.io/graphql
+  tags:
+  - Clinical
+  - Consultations
+  - Documentation
+  properties:
+  - type: Documentation
+    url: https://docs.semble.io/
+  - type: APIReference
+    url: https://docs.semble.io/docs/API/
+  - type: GraphQL
+    url: https://docs.semble.io/docs/API/queries/consultations/
+  - type: Authentication
+    url: https://docs.semble.io/docs/authentication/
+- aid: semble:semble-prescriptions-labs-api
+  name: Semble Prescriptions & Labs API
+  description: >-
+    GraphQL surface for e-prescribing and diagnostics — prescriptions, repeat
+    prescriptions and lab / pathology orders and results, integrated with
+    Semble's pharmacy and lab partner network.
+  humanURL: https://docs.semble.io/docs/API/queries/prescriptions/
+  baseURL: https://open.semble.io/graphql
+  tags:
+  - e-Prescribing
+  - Labs
+  - Pathology
+  properties:
+  - type: Documentation
+    url: https://docs.semble.io/
+  - type: APIReference
+    url: https://docs.semble.io/docs/API/
+  - type: GraphQL
+    url: https://docs.semble.io/docs/API/queries/prescriptions/
+  - type: Authentication
+    url: https://docs.semble.io/docs/authentication/
+- aid: semble:semble-billing-payments-api
+  name: Semble Billing & Payments API
+  description: >-
+    GraphQL surface for practice finances — invoices, invoice payments and line
+    items, account statements, products, price profiles, price rules and price
+    adjustment rules, and Semble Pay payment terminals / readers.
+  humanURL: https://docs.semble.io/docs/API/queries/invoices/
+  baseURL: https://open.semble.io/graphql
+  tags:
+  - Billing
+  - Payments
+  - Invoicing
+  properties:
+  - type: Documentation
+    url: https://docs.semble.io/
+  - type: APIReference
+    url: https://docs.semble.io/docs/API/
+  - type: GraphQL
+    url: https://docs.semble.io/docs/API/queries/invoices/
+  - type: Authentication
+    url: https://docs.semble.io/docs/authentication/
+- aid: semble:semble-practice-platform-api
+  name: Semble Practice & Platform API
+  description: >-
+    GraphQL surface for practice administration and platform integration —
+    practice details, users, contacts, tasks, labels, patient documents,
+    practice template documents, integration tokens and webhooks for
+    event-driven integrations.
+  humanURL: https://docs.semble.io/docs/API/queries/webhooks/
+  baseURL: https://open.semble.io/graphql
+  tags:
+  - Practice Management
+  - Webhooks
+  - Platform
+  properties:
+  - type: Documentation
+    url: https://docs.semble.io/
+  - type: APIReference
+    url: https://docs.semble.io/docs/API/
+  - type: GraphQL
+    url: https://docs.semble.io/docs/API/queries/webhooks/
+  - type: Authentication
+    url: https://docs.semble.io/docs/authentication/
+common:
+- type: Website
+  url: https://www.semble.io/
+- type: DeveloperPortal
+  url: https://docs.semble.io/
+- type: Documentation
+  url: https://docs.semble.io/
+- type: APIReference
+  url: https://docs.semble.io/docs/API/
+- type: GettingStarted
+  url: https://help.semble.io/api-access
+- type: Authentication
+  url: https://docs.semble.io/docs/authentication/
+- type: StatusPage
+  url: https://status.semble.io/
+- type: Security
+  url: https://trust.semble.io/
+- type: Blog
+  url: https://www.semble.io/blog
+- type: Support
+  url: https://help.semble.io/
+- type: SignUp
+  url: https://www.semble.io/book-a-demo
+- type: TermsOfService
+  url: https://www.semble.io/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.semble.io/privacy-policy
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
