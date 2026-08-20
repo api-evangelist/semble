@@ -153,6 +153,10 @@ apis:
   baseURL: https://open.semble.io/graphql
   tags:
   - Practice Management
+  - Webhook
+  - Platform
+  tags_raw:
+  - Practice Management
   - Webhooks
   - Platform
   properties:
