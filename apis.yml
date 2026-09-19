@@ -93,6 +93,10 @@ apis:
   baseURL: https://open.semble.io/graphql
   tags:
   - Scheduling
+  - Booking
+  - Appointments
+  tags_raw:
+  - Scheduling
   - Bookings
   - Appointments
   properties:
